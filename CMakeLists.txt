@@ -4,7 +4,7 @@ set(KF_VERSION "5.96.0") # handled by release scripts
 project(BluezQt VERSION ${KF_VERSION})
 
 include(FeatureSummary)
-find_package(ECM 5.96.0 NO_MODULE)
+find_package(ECM ${REQUIRED_ECM_VERSION} CONFIG)
 set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://commits.kde.org/extra-cmake-modules")
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
@@ -39,17 +39,16 @@ ecm_setup_version(PROJECT
 )
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.15.2)
 
 # Required Qt components to build this framework
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core DBus Network)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS Core DBus Network)
 
 # Optional Qt components to build this framework
-find_package(Qt${QT_MAJOR_VERSION}Test ${REQUIRED_QT_VERSION} CONFIG)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Test)
 set_package_properties(Qt${QT_MAJOR_VERSION}Test PROPERTIES DESCRIPTION "Autotests for BluezQt" TYPE OPTIONAL)
-find_package(Qt${QT_MAJOR_VERSION}Qml ${REQUIRED_QT_VERSION} CONFIG)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Qml)
 set_package_properties(Qt${QT_MAJOR_VERSION}Qml PROPERTIES DESCRIPTION "QML support for BluezQt" TYPE OPTIONAL)
-find_package(Qt${QT_MAJOR_VERSION}QuickTest ${REQUIRED_QT_VERSION} CONFIG)
+find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG COMPONENTS QuickTest)
 set_package_properties(Qt${QT_MAJOR_VERSION}QuickTest PROPERTIES DESCRIPTION "QML autotests for BluezQt" TYPE OPTIONAL)
 
 ecm_set_disabled_deprecation_versions(
